@@ -17,7 +17,7 @@
       :breakpoints="breakpoints"
       v-model="actualSlide"
     >
-      <slide jmkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk v-for="card in cards" :id="card.id" @click="actualSlide = cards.indexOf(card)">
+      <slide v-for="card in cards" :id="card.id" @click="actualSlide = cards.indexOf(card)">
         <div
           class="slide-content"
           :class="{'active animate__animated animate__headShake'  : card.id === openedCard}"
@@ -51,16 +51,33 @@
       alt=""
     >
   </div>
+
+  <ModalBasic
+    v-if="modalStage === 1"
+    title="Спасибо, что оформил(а) у нас заказ!"
+    content="Прежде чем ты ознакомишься с правилами по уходу за изделием, получи наш скромный подарок)"
+    buttonText="Получить подарок)"
+    @clicked="modalStage = 2"
+  />
+  <ModalBasic
+    v-if="modalStage === 2"
+    title="Отлично!"
+    content="Сделай скриншот и при следующем заказе покажи его нам)"
+    buttonText="Скидка 5% на все заказы!"
+    @clicked="modalStage = 0"
+  />
 </template>
 
 <script>
 import 'vue3-carousel/dist/carousel.css'
 import {Carousel, Slide, Pagination} from 'vue3-carousel'
+import ModalBasic from "@/components/ModalBasic.vue";
 
 export default {
   data() {
     return {
       openedCard: null,
+      modalStage: 1,
       actualSlide: 0,
       cards: [
         {
@@ -115,6 +132,7 @@ export default {
     }
   },
   components: {
+    ModalBasic,
     Pagination,
     Carousel,
     Slide,
