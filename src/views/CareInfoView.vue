@@ -62,7 +62,7 @@
   <ModalBasic
     v-if="modalStage === 2"
     title="Отлично!"
-    content="Сделай скриншот и при следующем заказе покажи его нам)"
+    content="Обязательно сделай скриншот и при следующем заказе покажи его нам)"
     buttonText="Скидка 5% на все заказы!"
     @clicked="modalStage = 0"
   />
@@ -123,7 +123,6 @@ export default {
         }
       ],
       breakpoints: {
-        // 700px and up
         870: {
           itemsToShow: 3,
           snapAlign: 'center',
@@ -140,6 +139,16 @@ export default {
   watch: {
     actualSlide() {
       this.openedCard = null;
+    },
+    modalStage(newValue) {
+      if (newValue === 0) {
+        localStorage.setItem("firstVisit", "false");
+      }
+    }
+  },
+  created() {
+    if (localStorage.getItem("firstVisit") === "false") {
+      this.modalStage = 0;
     }
   }
 }
@@ -202,6 +211,10 @@ export default {
       }
     }
   }
+}
+
+.carousel_slide--clone {
+  opacity: 0;
 }
 
 .carousel__slide {
