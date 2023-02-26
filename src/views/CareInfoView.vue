@@ -284,7 +284,7 @@ export default {
   }
 
   &#accessories .slide-content {
-    background-image: url("@/assets/img/accessories.jpg");
+    background-image: url("@/assets/img/accessories.png");
   }
 
   &--active {
